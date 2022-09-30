@@ -74,9 +74,9 @@ class functions extends Controller
     }
 
     // function that takes care of Prefix Notation Evaluation.The API receives a mathematical expression in prefix notation as a string and evaluates the expression.
+    // not implemented
     function calculatePrefixNotations($expression){
         $content = explode(' ', $expression);
-        print_r($content);
         $total = 0;
         
         return response()->json([
@@ -96,17 +96,19 @@ class functions extends Controller
             array_push($numbers, $string[$i]); // puts all the numbers in one array
             }
             else {
-                array_push($letters, $string[$i]); 
+                array_push($letters, $string[$i]); // put all the letters in one array
             }
             $i++;
         };
         sort($numbers);
-        print_r($numbers);
         natcasesort($letters);
         $new_letters_array = array();
-        
         $letters_length = count($letters);
-        echo $letters_length;
+        // implemented this method
+        // to switch the places of the lower case letters and upper case letters
+        // this method will remove duplicates
+        // but it isn't working for all cases, it will keep all the Capital letters at the beginning is a sorted way
+        // and all the lower letters at the end in a sorted way
         for ($j = 0; $j < $letters_length; $j++) {
             if(in_array(strtolower($letters[$j]), $letters) && !in_array(strtolower($letters[$j]) ,$new_letters_array)){
                 $element_to_find = strtolower($letters[$j]);
@@ -115,10 +117,8 @@ class functions extends Controller
             };
             if (!in_array($letters[$j], $new_letters_array))
             array_push($new_letters_array, $letters[$j]);
-        };
-        $final_array = array_merge($new_letters_array, $numbers);
-        print_r($final_array);
-        
+        } ;
+        $final_array = array_merge($new_letters_array, $numbers);        
         $final_string = "";
         foreach ($final_array as $i) { $final_string .= $i; };
         
