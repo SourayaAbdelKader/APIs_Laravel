@@ -16,3 +16,5 @@ use App\Http\Controllers\functions;
 */
 Route::get("/decomposing_number/{number}", [functions::class, 'decomposingNumber']);
 Route::get("/binary/{string}", [functions::class, 'integerToBinary']);
+Route::get("/calculate_prefix_notations/{expression}", [functions::class, 'calculatePrefixNotations']);
+Route::get("/sorting_string/{string}", [functions::class, 'sortingString']);

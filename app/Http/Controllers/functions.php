@@ -73,23 +73,59 @@ class functions extends Controller
         ]);
     }
 
-
-    function sortingString($name = "Laravel"){
-        $message = "HI " . $name;
-
+    // function that takes care of Prefix Notation Evaluation.The API receives a mathematical expression in prefix notation as a string and evaluates the expression.
+    function calculatePrefixNotations($expression){
+        $content = explode(' ', $expression);
+        print_r($content);
+        $total = 0;
+        
         return response()->json([
             "status" => "Success",
-            "message" => $message
+            "message" => $total
         ]);
     }
 
-    function calculatePrefixNotarions(Request $request){
-        $name = $request->name;
-        $age = $request->age;
 
+    function sortingString($string){
+        $length = strlen($string);
+        $i = 0;
+        $numbers = array();
+        $letters = array();
+        while ($i < $length) {
+            if(is_numeric($string[$i])){
+            array_push($numbers, $string[$i]); // puts all the numbers in one array
+            }
+            else {
+                array_push($letters, $string[$i]); 
+            }
+            $i++;
+        };
+        sort($numbers);
+        print_r($numbers);
+        natcasesort($letters);
+        $new_letters_array = array();
+        
+        $letters_length = count($letters);
+        echo $letters_length;
+        for ($j = 0; $j < $letters_length; $j++) {
+            if(in_array(strtolower($letters[$j]), $letters) && !in_array(strtolower($letters[$j]) ,$new_letters_array)){
+                $element_to_find = strtolower($letters[$j]);
+                $index = array_search($element_to_find, $letters);
+                array_push($new_letters_array, $letters[$index]);
+            };
+            if (!in_array($letters[$j], $new_letters_array))
+            array_push($new_letters_array, $letters[$j]);
+        };
+        $final_array = array_merge($new_letters_array, $numbers);
+        print_r($final_array);
+        
+        $final_string = "";
+        foreach ($final_array as $i) { $final_string .= $i; };
+        
+        print_r($new_letters_array);
         return response()->json([
             "status" => "Success",
-            "message" => $age
+            "message" => $final_string
         ]);
     }
     
