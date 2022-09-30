@@ -17,18 +17,49 @@ class functions extends Controller
             array_push($number_decompotion, $new_number); 
             $number = $number - $new_number; 
         };
+
         return response()->json([
             "status" => "Success",
             "message" => $number_decompotion
         ]);
     };
 
-    function integerToBinary($name = "Laravel"){
-        $message = "HI " . $name;
+    // function that translates from Human to Programer by replacing the numbers in a string with their binary form.
+    function integerToBinary($string){
+        $binary_string = "";
+        $length = strlen($string);
+        $i = 0; // to loop over the string
+        $number = ""; 
+        $multi_digit_number = false; 
+        while ($i < $length) {
+            if (is_numeric($string[$i])){
+                $number .= $string[$i];
+                $i++;
+                if(is_numeric($string[$i])){ //checking if the following char is a number 
+                    $number .= $string[$i];
+                    $multi_digit_number = true;
+                    $i++;
+                };
+                while($multi_digit_number){ // to check if the number is more than 2 digits 
+                    if(is_numeric($string[$i])){
+                        $number .= $string[$i];
+                        $i++;
+                    }
+                    else {
+                        $multi_digit_number = false;
+                    }  
+                };
+                $binary_string .= decbin($number);
+            } 
+            else { 
+                $binary_string .= $char;
+                $i++;
+            };
+        };
 
         return response()->json([
             "status" => "Success",
-            "message" => $message
+            "message" => $binary_string
         ]);
     }
 
