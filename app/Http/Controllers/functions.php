@@ -44,13 +44,13 @@ class functions extends Controller
             if (is_numeric($string[$i])){
                 $number .= $string[$i];
                 $i++;
-                if(is_numeric($string[$i])){ //checking if the following char is a number 
+                if(is_numeric($string[$i]) && $i< $length){ //checking if the following char is a number 
                     $number .= $string[$i];
                     $multi_digit_number = true;
                     $i++;
                 };
-                while($multi_digit_number){ // to check if the number is more than 2 digits 
-                    if(is_numeric($string[$i])){
+                while($multi_digit_number && $i< $length){ // to check if the number is more than 2 digits 
+                    if(is_numeric($string[$i]) && $i< $length){
                         $number .= $string[$i];
                         $i++;
                     }
@@ -59,9 +59,10 @@ class functions extends Controller
                     }  
                 };
                 $binary_string .= decbin($number);
+                $number = "";
             } 
             else { 
-                $binary_string .= $char;
+                $binary_string .= $string[$i];
                 $i++;
             };
         };

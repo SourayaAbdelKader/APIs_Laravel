@@ -15,3 +15,4 @@ use App\Http\Controllers\functions;
 |
 */
 Route::get("/decomposing_number/{number}", [functions::class, 'decomposingNumber']);
+Route::get("/binary/{string}", [functions::class, 'integerToBinary']);
